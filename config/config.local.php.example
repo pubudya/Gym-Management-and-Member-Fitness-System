@@ -1,0 +1,19 @@
+<?php
+return [
+    // Local WAMP only. On Railway, set these in the Railway Variables tab instead.
+    'base_url' => '/gym-management',
+    'db' => [
+        'host' => '127.0.0.1',
+        'port' => 3306,
+        'name' => 'gym_management',
+        'user' => 'root',
+        'pass' => '',
+    ],
+    'sms' => [
+        'enabled' => true,
+        'provider' => 'demo',
+        'api_url' => 'https://api.notify.lk/api/v1/send',
+        'api_key' => '',
+        'sender_id' => 'VOLTGYM',
+    ],
+];
