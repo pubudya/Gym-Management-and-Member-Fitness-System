@@ -1,0 +1,13 @@
+/config/config.local.php
+/uploads/*
+/storage/receipts/*
+!/storage/receipts/.gitkeep
+!/storage/receipts/.htaccess
+!/uploads/.gitkeep
+/java/lib/*.jar
+.idea/
+.vs/
+*.iml
+Thumbs.db
+.DS_Store
+.phpunit.result.cache

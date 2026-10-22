@@ -1,0 +1,13 @@
+.git
+.idea
+.vs
+*.iml
+config/config.local.php
+java
+uploads/*
+storage/receipts/*
+!storage/receipts/.gitkeep
+!uploads/.gitkeep
+Thumbs.db
+.DS_Store
+agent-transcripts
