@@ -2,7 +2,7 @@
 
 This is a gym management and member fitness system. Only **Admin**, **Coach** and **Member** accounts can log in.
 
-To put this online for gym owners (phone and laptop), use **Railway** (PHP + MySQL). Do **not** use Netlify. Click-by-click steps: [RAILWAY.md](RAILWAY.md).
+
 
 **Admin** has complete access to the gym. Admin can register, edit, deactivate and search members. Admin can register personal coaches and give them a login, and assign members to coaches. Admin can set the monthly gym fee, assign or renew monthly memberships, record online and offline payments, receipts, attendance, trainers/coaches, workout plans, meal plans, fitness goals and progress, classes, appointments, equipment, inventory, income and expenses, reports, feedback, announcements, notifications and audit logs. Admin can create workout plans and meal plans for **all members**.
 
