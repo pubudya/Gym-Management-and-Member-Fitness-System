@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "php: serve",
+      "type": "shell",
+      "command": "C:\\wamp64\\bin\\php\\php8.2.29\\php.exe",
+      "args": [
+        "-S",
+        "localhost:8080",
+        "-t",
+        "${workspaceFolder}",
+        "${workspaceFolder}\\router.php"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "php",
+        "pattern": { "regexp": "^$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Development Server"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ]
+}
