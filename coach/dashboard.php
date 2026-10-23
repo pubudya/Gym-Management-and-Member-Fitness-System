@@ -6,7 +6,7 @@ require_login('COACH');
 $coach = current_coach();
 if (!$coach) {
     flash('error', 'This coach login is not linked to a coach profile. Ask admin to re-save the coach.');
-    redirect('index.php');
+    redirect('login.php');
 }
 
 $ids = TrainingService::assignedMemberIds();
