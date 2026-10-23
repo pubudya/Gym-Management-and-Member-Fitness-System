@@ -130,12 +130,12 @@ function require_login(string|array|null $role = null): array
     $user = current_user();
     if (!$user) {
         flash('error', 'Please log in to continue.');
-        redirect('index.php');
+        redirect('login.php');
     }
     if ($user['status'] !== 'ACTIVE') {
         $_SESSION = [];
         flash('error', 'This account is not active.');
-        redirect('index.php');
+        redirect('login.php');
     }
     $roles = $role === null ? [] : (array) $role;
     if ($roles && !in_array($user['role'], $roles, true)) {
