@@ -6,61 +6,54 @@ if (current_user()) {
     redirect(home_path());
 }
 
-$error = flash('error');
-if (is_post()) {
-    $username = trim((string) post('username'));
-    $password = (string) post('password');
-    if ($username === '' || $password === '') {
-        $error = 'Enter username and password.';
-    } elseif (!Auth::attempt($username, $password)) {
-        $error = $error ?: 'Invalid username or password.';
-        audit('LOGIN_FAILED', 'auth', $username);
-    } else {
-        redirect(home_path());
-    }
-}
-
-try {
-    Database::fetch('SELECT user_id FROM users LIMIT 1');
-    $needsInstall = false;
-} catch (Throwable $e) {
-    $needsInstall = true;
-}
+$needsInstall = !Installer::schemaReady();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login · <?= e(APP_NAME) ?></title>
+    <title><?= e(APP_NAME) ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Syne:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= e(url('assets/css/app.css')) ?>">
 </head>
-<body class="login-body">
-<section class="login-art">
-    <div>
-        <span class="badge ok">Admin · Coach · Member</span>
-        <h1>Train harder.<br>Run the gym smarter.</h1>
-        <p>Admin runs the business. Coaches train only their assigned members. Members follow workouts, meals and gym visits.</p>
+<body class="home-body">
+<header class="public-nav">
+    <a class="brand" href="<?= e(url('index.php')) ?>">
+        <span class="brand-mark">V</span>
+        <span><strong><?= e(APP_NAME) ?></strong><small>Gym management</small></span>
+    </a>
+    <div class="links">
+        <a class="btn ghost" href="<?= e(url('login.php')) ?>">Sign in</a>
+        <a class="btn" href="<?= e(url('register.php')) ?>">Create admin account</a>
     </div>
-    <div class="muted">QR attendance · SMS alerts · workout photos · meal plans · progress</div>
-</section>
-<section class="login-panel">
-    <form class="login-card card" method="post" data-validate>
-        <h2>Sign in</h2>
-        <p class="muted">Admin, Coach and Member accounts.</p>
-        <?php if ($needsInstall): ?>
-            <div class="alert">Database is not installed yet. <a href="<?= e(url('install.php')) ?>"><b>Run installer</b></a>.</div>
-        <?php endif; ?>
-        <?php if ($error): ?><div class="alert bad"><?= e($error) ?></div><?php endif; ?>
-        <?= csrf_field() ?>
-        <label>Username or email</label>
-        <input name="username" required autofocus value="<?= e((string) post('username')) ?>">
-        <label>Password</label>
-        <input type="password" name="password" required>
-        <button class="btn full" type="submit">Enter gym system</button>
-    </form>
-</section>
+</header>
+<main class="home-hero">
+    <?php if ($needsInstall): ?>
+        <div class="alert">The database is not ready yet. Creating an admin account will set up MySQL tables automatically. You can also <a href="<?= e(url('install.php')) ?>"><b>run the installer</b></a>.</div>
+    <?php endif; ?>
+    <span class="badge ok">Admin accounts only</span>
+    <h1>Run your gym from one simple home.</h1>
+    <p class="muted">Create an admin account to own the gym system. Admins then add coaches and members from the console. Public signup is not open to members or coaches.</p>
+    <div class="home-actions">
+        <a class="btn" href="<?= e(url('register.php')) ?>">Create admin account</a>
+        <a class="btn ghost" href="<?= e(url('login.php')) ?>">Sign in</a>
+    </div>
+    <div class="home-points">
+        <div class="card">
+            <h3>Admin</h3>
+            <p class="muted">Create the gym, register coaches and members, and manage memberships, payments and attendance.</p>
+        </div>
+        <div class="card">
+            <h3>Coach</h3>
+            <p class="muted">Coaches are added by an admin. They train only the members assigned to them.</p>
+        </div>
+        <div class="card">
+            <h3>Member</h3>
+            <p class="muted">Members are registered by an admin. They log in to follow workouts, meals and gym visits.</p>
+        </div>
+    </div>
+</main>
 </body>
 </html>
